@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { isValidURL } from '../../utils/utils'
 import { Container, Row, Col, Navbar, Alert } from 'react-bootstrap'
+import SearchAndFilterForm from './components/SearchAndFilterForm'
 
 interface RecipeFinderProps {
   api: string;
@@ -33,6 +34,10 @@ const RecipeFinder: React.FC<RecipeFinderProps> = ({ api }) => {
           <Row className="justify-content-center mb-3">
             <Col xs={12} md={8} lg={8}>
               <h1 className="mt-3" data-testid='main-title'>Recipe Finder</h1>
+              <SearchAndFilterForm
+                api={api}
+                setErrorMessage={setErrorMessage}
+              />
             </Col>
           </Row>
 
