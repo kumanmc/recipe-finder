@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import SearchAndFilterForm from './SearchAndFilterForm';
-import { API_OK, API_KO } from '../../../utils/constants';
+import { API_OK } from '../../../utils/constants';
 
 global.fetch = jest.fn();
 const mockedFetch = global.fetch as jest.Mock;
@@ -10,34 +10,56 @@ describe('SearchAndFilterForm', () => {
 
   beforeEach(() => {
     mockedFetch.mockClear();
+    jest.clearAllMocks();
   });
 
-  test('renders SearchAndFilterForm, loading is shown and API fails when setErrorMessage is executed', async () => {
-    const setErrorMessageMock = jest.fn();
+  test('renders SearchAndFilterForm, search and API does not work', async () => {
+    const setCriticalErrorMock = jest.fn();
+    mockedFetch.mockRejectedValueOnce(new Error('API server down'));
+
     render(
-      <SearchAndFilterForm
-        api={API_KO}
-        setErrorMessage={setErrorMessageMock}
-      />
+      <SearchAndFilterForm api={API_OK} setCriticalError={setCriticalErrorMock} />
     )
-    const spinner = screen.queryByTestId('loading-grid-loader');
+    let spinner = screen.queryByTestId('loading-grid-loader');
     expect(spinner).toBeNull();
 
-    //SearchForm is rendered
     const title = screen.getByTestId('search-title') as HTMLInputElement;
     expect(title).toBeInTheDocument();
 
     // check if butotn is disabled when input is empty
     const recipeSearchInput = screen.getByLabelText(/Ingredient or keywords:/i);
     expect(recipeSearchInput).toHaveValue('');
-    const searchButton = screen.getByRole('button', { name: /Search/i });
+    let searchButton = screen.getByRole('button', { name: /Search/i });
     expect(searchButton).toBeDisabled();
 
-    // Simulate user typing in the input
+    // Simulate user types in the input
     fireEvent.change(recipeSearchInput, { target: { value: 'Pasta' } });
     expect(recipeSearchInput).toHaveValue('Pasta');
     expect(searchButton).not.toBeDisabled();
 
+    // Simulate form submission
+    fireEvent.submit(screen.getByRole('form'));
+
+    //async actions after sending the form
+    await waitFor(() => {
+      expect(screen.getByTestId('loading-grid-loader')).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(mockedFetch).toHaveBeenCalledTimes(1);
+      expect(mockedFetch).toHaveBeenCalledWith(`${API_OK}search.php?s=Pasta`);
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-grid-loader')).toBeNull();
+    });
+
+    //IMPORTANT: setCriticalError is in SearchFinder and shows the error message in the alert
+    // overwriting any other render, scenario like this one will be created on SearchFinder
+    await waitFor(() => {
+      expect(setCriticalErrorMock).toHaveBeenCalledTimes(1);
+      expect(setCriticalErrorMock).toHaveBeenCalledWith('0024 - Error: API server down');
+    });
 
   });
 

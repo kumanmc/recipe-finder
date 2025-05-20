@@ -10,33 +10,66 @@ const SearchAndFilterForm: React.FC<SearchAndFilterForm> = ({ api, setCriticalEr
   const [loading, setLoading] = useState<boolean>(false)
   const [results, setResults] = useState<any[]>([]); // State to store results
 
+  const handleResults = (data: any[]) => {
+    setResults(data);
+  };
+
   return (
     <>
-      {loading ? <Spinner /> : <SearchForm setLoading={setLoading} />}
+      <SearchForm
+        api={api}
+        setLoading={setLoading}
+        loading={loading}
+        setCriticalError={setCriticalError}
+        onResults={handleResults}
+      />
+      {loading ? <Spinner /> : <ResultList results={results} />}
     </>
 
   )
 }
 
-const SearchForm: React.FC<{ setLoading: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setLoading }) => {
+interface SearchFormProps {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
+  setCriticalError: (message: string) => void;
+  api: string;
+  onResults: (data: any[]) => void;
+}
+
+const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCriticalError, api, onResults }) => {
   const [ingredients, setIngredients] = useState<string>('')
 
   const handleSearch = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
-
-    console.log('handleSearch', ingredients)
     event.preventDefault();
-    // setLoading(true);
+    setLoading(true);
 
+    try {
+      const url = `${api}search.php?s=${encodeURIComponent(ingredients)}`;
+      const response = await fetch(url);
 
-    // ...fetch..
-
-    // setLoading(false);
+      //TODO: EXTRACT TO A FUNCTION
+      if (!response.ok) {
+        setCriticalError(`3242 - Error fetching data from API ${url}`);
+        onResults([]);
+      } else {
+        const data = await response.json();
+        //console.log('API Success Response:', data);
+        onResults(data.meals);
+      }
+    } catch (error) {
+      //console.log(''0024 - ' + error);
+      setCriticalError('0024 - ' + error);
+      onResults([]);
+    } finally {
+      setLoading(false);
+    }
   }, [ingredients]);
 
 
   return (
     <Row>
-      <Form onSubmit={handleSearch}>
+      <Form onSubmit={handleSearch} aria-label={'Recipe search form'}>
         <Row className="align-items-center">
           <Alert variant='info' >
             <Alert.Heading data-testid="search-title">Welcome to Recipe Finder!</Alert.Heading>
@@ -60,7 +93,7 @@ const SearchForm: React.FC<{ setLoading: React.Dispatch<React.SetStateAction<boo
             />
           </Col>
           <Col xs={12} md={2} lg={2}>
-            <Button variant="primary" type="submit" disabled={ingredients === ''}>
+            <Button variant="primary" type="submit" disabled={ingredients === '' || loading}>
               Search
             </Button>
           </Col>
@@ -81,7 +114,16 @@ const Spinner = (() => {
     </div>
   );
 })
-
-
-
 export default SearchAndFilterForm
+
+const ResultList: React.FC<{ results: any[] }> = ({ results }) => {
+  return (
+    <div>
+      {results && results.length > 0 ? (
+        <p>RESULTS!!!! OLEEEEE</p>
+      ) : (
+        <p>No results found.</p>
+      )}
+    </div>
+  );
+}
