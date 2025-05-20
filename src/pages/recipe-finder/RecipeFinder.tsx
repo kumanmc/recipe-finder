@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { isValidURL } from '../../utils/utils'
 import { Container, Row, Col, Navbar, Alert } from 'react-bootstrap'
-import SearchAndFilterForm from './components/SearchAndFilterForm'
+import SearchAndFilterForm from './search-and-filter/SearchAndFilterForm'
 
 interface RecipeFinderProps {
   api: string;
