@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { isValidURL } from '../../utils/utils'
 import { Container, Row, Col, Navbar, Alert } from 'react-bootstrap'
 
-interface RecipeFinder {
+interface RecipeFinderProps {
   api: string;
 }
 
-const RecipeFinder: React.FC<RecipeFinder> = ({ api }) => {
+const RecipeFinder: React.FC<RecipeFinderProps> = ({ api }) => {
 
   const [errorMessage, setErrorMessage] = useState('')
 
