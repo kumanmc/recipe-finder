@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { isValidURL } from '../../utils/utils';
+import { Container, Row, Col, Navbar, Alert } from 'react-bootstrap'
 
 interface RecipeFinder {
   api: string;
@@ -11,16 +12,29 @@ const RecipeFinder: React.FC<RecipeFinder> = ({ api }) => {
 
   useEffect(() => {
     if (!isValidURL(api)) {
-      setErrorMessage('Recipe Finder Error: wrong api value')
+      setErrorMessage('0023 - Recipe Finder Error: wrong api value')
       return
     }
   }, [api])
 
-  if (errorMessage) {
-    return <h1>{errorMessage}</h1>
-  }
-
-  return <h1>Recipe Finder</h1>
+  return (
+    <Container className="my-4">
+      {
+        errorMessage ? (
+          <Row className="justify-content-center mb-3">
+            <Col xs={12} md={8} lg={8}>
+              <Alert variant="danger">
+                <Alert.Heading>Oooops! Something Went Wrong!</Alert.Heading>
+                <p>{errorMessage}</p>
+              </Alert>
+            </Col>
+          </Row>
+        ) : (
+          <h1 className="mt-3">Recipe Finder</h1>
+        )
+      }
+    </Container>
+  )
 }
 
 export default RecipeFinder
