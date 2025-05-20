@@ -22,7 +22,8 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
 
       //TODO: EXTRACT TO A FUNCTION
       if (!response.ok) {
-        setCriticalError(`3242 - Error fetching data from API ${url}`);
+        // console.log(response)
+        setCriticalError(`0205 - Error fetching data from API`);
         onResults([]);
       } else {
         const data = await response.json();
