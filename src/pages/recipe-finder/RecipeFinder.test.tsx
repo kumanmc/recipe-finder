@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import RecipeFinder from './RecipeFinder'
 import { log } from 'console';
 
+
 describe('RecipeFinder', () => {
 
   test.only('renders RecipeFinder without url in api prop', () => {
@@ -16,4 +17,7 @@ describe('RecipeFinder', () => {
     const title = screen.getByText(/Recipe Finder/i)
     expect(title).toBeInTheDocument()
   });
- })
+
+})
+
+
