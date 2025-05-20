@@ -7,8 +7,8 @@ describe('RecipeFinder', () => {
 
   test('renders RecipeFinder without url in api prop', () => {
     render(<RecipeFinder api={API_KO} />)
-    const errorMessage = screen.getByText(/0023 - Recipe Finder Error: wrong api value/i)
-    expect(errorMessage).toBeInTheDocument()
+    const criticalError = screen.getByText(/0023 - Recipe Finder Error: wrong api value/i)
+    expect(criticalError).toBeInTheDocument()
   });
 
   test('renders RecipeFinder with url in api prop', () => {

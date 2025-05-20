@@ -8,12 +8,12 @@ interface RecipeFinderProps {
 }
 
 const RecipeFinder: React.FC<RecipeFinderProps> = ({ api }) => {
-
-  const [errorMessage, setErrorMessage] = useState('')
+  //Critical error interrumps any render and shows a message
+  const [criticalError, setCriticalError] = useState('')
 
   useEffect(() => {
     if (!isValidURL(api)) {
-      setErrorMessage('0023 - Recipe Finder Error: wrong api value')
+      setCriticalError('0023 - Recipe Finder Error: wrong api value')
       return
     }
   }, [api])
@@ -21,12 +21,12 @@ const RecipeFinder: React.FC<RecipeFinderProps> = ({ api }) => {
   return (
     <Container className="my-4">
       {
-        errorMessage ? (
+        criticalError ? (
           <Row className="justify-content-center mb-3">
             <Col xs={12} md={8} lg={8}>
               <Alert variant="danger">
                 <Alert.Heading>Oooops! Something Went Wrong!</Alert.Heading>
-                <p>{errorMessage}</p>
+                <p>{criticalError}</p>
               </Alert>
             </Col>
           </Row>
@@ -36,7 +36,7 @@ const RecipeFinder: React.FC<RecipeFinderProps> = ({ api }) => {
               <h1 className="mt-3" data-testid='main-title'>Recipe Finder</h1>
               <SearchAndFilterForm
                 api={api}
-                setErrorMessage={setErrorMessage}
+                setCriticalError={setCriticalError}
               />
             </Col>
           </Row>

@@ -4,10 +4,11 @@ import { Button, Row, Col, Form, Alert } from 'react-bootstrap'
 
 interface SearchAndFilterForm {
   api: string;
-  setErrorMessage: (message: string) => void;
+  setCriticalError: (message: string) => void;
 }
-const SearchAndFilterForm: React.FC<SearchAndFilterForm> = ({ api, setErrorMessage }) => {
+const SearchAndFilterForm: React.FC<SearchAndFilterForm> = ({ api, setCriticalError }) => {
   const [loading, setLoading] = useState<boolean>(false)
+  const [results, setResults] = useState<any[]>([]); // State to store results
 
   return (
     <>
