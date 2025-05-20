@@ -1,33 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { GridLoader } from 'react-spinners'
 import { Button, Row, Col, Form, Alert } from 'react-bootstrap'
-
-interface SearchAndFilterForm {
-  api: string;
-  setCriticalError: (message: string) => void;
-}
-const SearchAndFilterForm: React.FC<SearchAndFilterForm> = ({ api, setCriticalError }) => {
-  const [loading, setLoading] = useState<boolean>(false)
-  const [results, setResults] = useState<any[]>([]); // State to store results
-
-  const handleResults = (data: any[]) => {
-    setResults(data);
-  };
-
-  return (
-    <>
-      <SearchForm
-        api={api}
-        setLoading={setLoading}
-        loading={loading}
-        setCriticalError={setCriticalError}
-        onResults={handleResults}
-      />
-      {loading ? <Spinner /> : <ResultList results={results} />}
-    </>
-
-  )
-}
 
 interface SearchFormProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -103,27 +75,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
 
   );
 }
+export default SearchForm
 
-const Spinner = (() => {
-  return (
-    <div data-testid="loading-grid-loader">
-      <GridLoader
-        color="#3b82f6"
-        margin={70}
-        size={80} />
-    </div>
-  );
-})
-export default SearchAndFilterForm
 
-const ResultList: React.FC<{ results: any[] }> = ({ results }) => {
-  return (
-    <div>
-      {results && results.length > 0 ? (
-        <p>RESULTS!!!! OLEEEEE</p>
-      ) : (
-        <p>No results found.</p>
-      )}
-    </div>
-  );
-}
+

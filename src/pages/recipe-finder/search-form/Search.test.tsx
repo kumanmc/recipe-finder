@@ -1,24 +1,24 @@
 import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
-import SearchAndFilterForm from './SearchAndFilterForm';
+import SearchWrapper from './SearchWrapper';
 import { API_OK } from '../../../utils/constants';
 
 global.fetch = jest.fn();
 const mockedFetch = global.fetch as jest.Mock;
 
-describe('SearchAndFilterForm', () => {
+describe('SearchWrapper', () => {
 
   beforeEach(() => {
     mockedFetch.mockClear();
     jest.clearAllMocks();
   });
 
-  test('renders SearchAndFilterForm, search and API does not work', async () => {
+  test('renders SearchWrapper, search and API does not work', async () => {
     const setCriticalErrorMock = jest.fn();
     mockedFetch.mockRejectedValueOnce(new Error('API server down'));
 
     render(
-      <SearchAndFilterForm api={API_OK} setCriticalError={setCriticalErrorMock} />
+      <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
     )
     let spinner = screen.queryByTestId('loading-grid-loader');
     expect(spinner).toBeNull();
