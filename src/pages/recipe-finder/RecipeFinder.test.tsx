@@ -13,7 +13,7 @@ describe('RecipeFinder', () => {
 
   test('renders RecipeFinder with url in api prop', () => {
     render(<RecipeFinder api={API_OK} />)
-    const title = screen.getByText(/Recipe Finder/i)
+    const title = screen.getByTestId(/main-title/i)
     expect(title).toBeInTheDocument()
   });
 

@@ -30,7 +30,12 @@ const RecipeFinder: React.FC<RecipeFinderProps> = ({ api }) => {
             </Col>
           </Row>
         ) : (
-          <h1 className="mt-3">Recipe Finder</h1>
+          <Row className="justify-content-center mb-3">
+            <Col xs={12} md={8} lg={8}>
+              <h1 className="mt-3" data-testid='main-title'>Recipe Finder</h1>
+            </Col>
+          </Row>
+
         )
       }
     </Container>
