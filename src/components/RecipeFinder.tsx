@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { isValidURL } from '../../utils/utils'
+import { isValidURL } from '../utils/utils'
 import { Container, Row, Col, Navbar, Alert } from 'react-bootstrap'
 import SearchWrapper from './search-form/SearchWrapper'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import RecipeFinder from './RecipeFinder'
-import { API_OK, API_KO } from '../../utils/constants'
+import { API_OK, API_KO } from '../utils/constants'
 
 describe('RecipeFinder', () => {
 

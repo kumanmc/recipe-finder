@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import SearchWrapper from './SearchWrapper';
-import { API_OK } from '../../../utils/constants';
+import { API_OK } from '../../utils/constants';
 
 global.fetch = jest.fn();
 const mockedFetch = global.fetch as jest.Mock;

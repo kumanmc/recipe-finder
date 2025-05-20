@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import RecipeFinder from './pages/recipe-finder/RecipeFinder';
+import RecipeFinder from './components/RecipeFinder';
 import { API_OK } from './utils/constants';
 
 function App() {
