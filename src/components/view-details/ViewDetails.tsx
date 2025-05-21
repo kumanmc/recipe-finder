@@ -4,6 +4,7 @@ import { Meal } from '../../types/meal.type';
 import { Row, Col, Image } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { getAproxTime } from './getAproachTime';
 
 interface ViewDetailsProps {
   meal: Meal;
@@ -56,7 +57,7 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
                 <b>Origin:</b> {meal.strArea}
               </Card.Text>
               <Card.Text>
-                <b>Preparation time:</b> DEVELOP
+                <b>Preparation time:</b> {getAproxTime(meal.strInstructions)}
               </Card.Text>
             </Tab>
             <Tab eventKey="instructions" title="Instructions">
