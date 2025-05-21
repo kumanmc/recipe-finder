@@ -55,7 +55,8 @@
       "!src/index.tsx",
       "!src/reportWebVitals.ts",
       "!src/setupTests.ts",
-      "!src/**/constants.ts", 
+      "!src/**/constants.ts",
+      "!src/types/*",
       "!src/App.tsx"
     ],
     "coverageReporters": [
