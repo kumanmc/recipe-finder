@@ -53,8 +53,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
         <Row className="align-items-center">
           <Alert variant='info' >
             <Alert.Heading data-testid="search-title">Welcome to Recipe Finder!</Alert.Heading>
-            <p>
-              Here you can search for recipes using ingredients or keywords.            </p>
+            <p>Here you can search for recipes using ingredients or keywords.</p>
           </Alert>
 
           <Col xs={12} md={4} lg={3} >

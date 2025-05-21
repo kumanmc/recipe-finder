@@ -1,6 +1,6 @@
 import { Meal } from "../../types/meal.type";
 import MealCard from './MealCard';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Alert } from 'react-bootstrap';
 
 interface ResultListProps {
   meals: Meal[] | null;
@@ -8,7 +8,7 @@ interface ResultListProps {
 
 const ResultList: React.FC<ResultListProps> = ({ meals }) => {
   return (
-    <div>
+    <>
       {meals && meals.length > 0 ? (
         <Row role='list'>
           {meals.map((meal) => (
@@ -18,10 +18,15 @@ const ResultList: React.FC<ResultListProps> = ({ meals }) => {
           ))}
         </Row>
       ) : (
-        // //TODO: MAKE IT BEAUTIFUL
-        <p>No results found.</p>
+        <Row className="align-items-center mt-3">
+          <Alert variant='warning' >
+            <Alert.Heading>No results found</Alert.Heading>
+            Try with other ingredients or keywords.
+          </Alert>
+            <h2></h2>
+        </Row>
       )}
-    </div>
+    </>
   );
 }
 
