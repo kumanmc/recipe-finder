@@ -1,11 +1,11 @@
 /**
  * Returns true|false if it is a valid URL
  * @param str La cadena de entrada.
- * @returns La cadena con la primera letra en mayúscula.
+ * @returns true: valid| false:invalid
  */
-export function isValidURL(str: string): boolean {
+export function isValidURL(url: string): boolean {
   try {
-    new URL(str);
+    new URL(url);
     return true;
   } catch (error) {
     return false;
