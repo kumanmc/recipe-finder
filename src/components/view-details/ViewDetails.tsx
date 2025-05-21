@@ -14,9 +14,23 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
 
 
   const formatInstructions = () => {
-    if (!meal.strInstructions) return '';
     return meal.strInstructions.replace(/\r\n|\n/g, '<br />');
   };
+
+  const formatIngredients = () => {
+    const ingredientKeys = Object.keys(meal).filter(key => key.startsWith('strIngredient'));
+    const measureKeys = Object.keys(meal).filter(key => key.startsWith('strMeasure'));
+
+    const rtn = [];
+    for(let i = 0; i < ingredientKeys.length; i++) {
+      if (!meal[ingredientKeys[i] as keyof Meal] && !meal[measureKeys[i] as keyof Meal]) {
+        continue;
+      }
+      rtn.push(meal[measureKeys[i] as keyof Meal] + ' ' + meal[ingredientKeys[i] as keyof Meal]);
+    }
+    return rtn.sort().filter(item => item.trim() !== '');
+
+  }
 
   return (
     <Row className='mt-4'>
@@ -45,11 +59,17 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
                 <b>Preparation time:</b> DEVELOP
               </Card.Text>
             </Tab>
-            <Tab eventKey="profile" title="Instructions">
+            <Tab eventKey="instructions" title="Instructions">
               <div dangerouslySetInnerHTML={{ __html: formatInstructions() }} />
             </Tab>
             <Tab eventKey="ingredients" title="Ingredients">
-              HERE INGREDIENTES
+              {
+                formatIngredients().map((el: string, index) => (
+                  <Card.Text key={index}>
+                    {el}
+                  </Card.Text>
+                ))
+              }
             </Tab>
           </Tabs>
 

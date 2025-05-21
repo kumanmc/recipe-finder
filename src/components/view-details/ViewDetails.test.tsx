@@ -7,7 +7,7 @@ describe('ViewDetails', () => {
 
   test('receive meal and show info', async () => {
     const onGoBack = jest.fn();
-    render(<ViewDetails meal={dataOne.meals[0]} onGoBack={onGoBack}/>);
+    render(<ViewDetails meal={dataOne.meals[0]} onGoBack={onGoBack} />);
 
     const meal = dataOne.meals[0];
 
@@ -25,7 +25,7 @@ describe('ViewDetails', () => {
 
     if (meal.strArea) { // Check if mock data has area
       // We search for the text content. Using a regex for flexibility.
-      expect(screen.getByText(`Origin: ${meal.strArea}`)).toBeInTheDocument();
+      expect(screen.getByText(`${meal.strArea}`)).toBeInTheDocument();
     }
 
     if (meal.strInstructions) { // Check if mock data has instructions
@@ -35,9 +35,35 @@ describe('ViewDetails', () => {
     // TODO: PREPARATION TIME. SEARCH BY MINUTES, HOUR, HOURS IN DESCRIPTION AND GET NUMBERS
     // TO SHOW SOME APROX VALUE
 
-    //INGREDIENTS: JOIN TTHE TWO ARRAYS BY POSITION TO HAVE MEASURE AND INGREDIENT
+    //General selected when access
+    const generalTabButton = screen.getByRole('tab', { name: /General/i });
+    expect(generalTabButton).toHaveAttribute('aria-selected', 'true');
+    //Check some data
+    expect(screen.getByText(meal.strCategory)).toBeInTheDocument();
+    expect(screen.getByText(meal.strArea)).toBeInTheDocument();
 
-    //INSTRUCTIONS:
+    //Instructions:
+    const instructionsTabButton = screen.getByRole('tab', { name: /Instructions/i });
+    expect(instructionsTabButton).toBeInTheDocument();
+    fireEvent.click(instructionsTabButton);
+    await waitFor(() => {
+      expect(generalTabButton).toHaveAttribute('aria-selected', 'false');
+      expect(instructionsTabButton).toHaveAttribute('aria-selected', 'true');
+    });
+
+    expect(screen.getByText(/BIG TEXT/i)).toBeInTheDocument();
+
+    //Ingredients
+    const ingredientsTabButton = screen.getByRole('tab', { name: /Ingredients/i });
+    expect(ingredientsTabButton).toBeInTheDocument();
+    fireEvent.click(ingredientsTabButton);
+
+    await waitFor(() => {
+      expect(generalTabButton).toHaveAttribute('aria-selected', 'false');
+      expect(ingredientsTabButton).toHaveAttribute('aria-selected', 'true');
+    });
+    const ingredients = meal.strMeasure1 + ' ' + meal.strIngredient1;
+    expect(screen.getByText(ingredients)).toBeInTheDocument();
 
 
     const backButton = screen.getByRole('button', { name: /Back/i });
