@@ -8,19 +8,19 @@ describe('ResultList', () => {
 
   test('receive no meals', () => {
 
-    render(<ResultList meals={[]} />);
+    render(<ResultList meals={[]} userSearched={false} />);
 
     const recipeList = screen.queryByRole('recipe-list');
     expect(recipeList).toBeNull();
 
-    const noResults = screen.getByText(/No results found/i);
-    expect(noResults).toBeInTheDocument();
+    const noResults = screen.queryByText(/No results found/i);
+    expect(noResults).not.toBeInTheDocument();
 
   });
 
   test('receive meals', () => {
 
-    render(<ResultList meals={data.meals} />);
+    render(<ResultList meals={data.meals} userSearched={false} />);
 
     expect(screen.queryByText(/No results found/i)).not.toBeInTheDocument();
 
@@ -34,7 +34,7 @@ describe('ResultList', () => {
 
   test('receive one meals', () => {
 
-    render(<ResultList meals={dataOne.meals} />);
+    render(<ResultList meals={dataOne.meals} userSearched={false} />);
 
     expect(screen.queryByText(/No results found/i)).not.toBeInTheDocument();
 

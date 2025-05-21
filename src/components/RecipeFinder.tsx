@@ -33,7 +33,14 @@ const RecipeFinder: React.FC<RecipeFinderProps> = ({ api }) => {
         ) : (
           <Row className="justify-content-center mb-3">
             <Col xs={12} md={8} lg={8}>
-              <h1 className="mt-3" data-testid='main-title'>Recipe Finder</h1>
+              <div className="text-center my-1">
+                <h1 className="fw-bold" data-testid='main-title'>Recipe Finder</h1>
+                <hr style={{
+                  width: '150px',
+                  margin: '0.5rem auto 0 auto',
+                  borderTop: '3px solid #0d6efd',
+                }} />
+              </div>
               <SearchWrapper
                 api={api}
                 setCriticalError={setCriticalError}

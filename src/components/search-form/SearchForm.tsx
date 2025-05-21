@@ -6,11 +6,12 @@ interface SearchFormProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
   setCriticalError: (message: string) => void;
+  setUserSearched: (value: boolean) => void;
   api: string;
   onResults: (data: Meal[]) => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCriticalError, api, onResults }) => {
+const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCriticalError, api, onResults, setUserSearched }) => {
   const [ingredients, setIngredients] = useState<string>('')
 
   const handleSearch = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,6 +21,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
     try {
       const url = `${api}search.php?s=${encodeURIComponent(ingredients)}`;
       const response = await fetch(url);
+      setUserSearched(true);
 
       //TODO: EXTRACT TO A FUNCTION
       if (!response.ok) {
@@ -48,11 +50,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
 
 
   return (
-    <Row>
-      <Form onSubmit={handleSearch} aria-label={'Recipe search form'}>
+    <Row className=''>
+      <Form onSubmit={handleSearch} aria-label={'Recipe search form'}
+        className="border p-3 rounded mt-4" >
         <Row className="align-items-center">
           <Alert variant='info' >
-            <Alert.Heading data-testid="search-title">Welcome to Recipe Finder!</Alert.Heading>
+            <Alert.Heading data-testid="search-title">Welcome! Find Your Perfect Recipe</Alert.Heading>
             <p>Here you can search for recipes using ingredients or keywords.</p>
           </Alert>
 
@@ -71,7 +74,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
               onChange={(e) => setIngredients(e.target.value)}
             />
           </Col>
-          <Col xs={12} md={2} lg={2}>
+          <Col xs={12} md={2} lg={2} className={'mt-2'}>
             <Button variant="primary" type="submit" disabled={ingredients === '' || loading}>
               Search
             </Button>

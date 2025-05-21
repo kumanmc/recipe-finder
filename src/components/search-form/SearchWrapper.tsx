@@ -12,6 +12,7 @@ interface SearchWrapperProps {
 const SearchWrapper: React.FC<SearchWrapperProps> = ({ api, setCriticalError }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [meals, setMeals] = useState<Meal[]>([]); // State to store results
+  const[userSearched, setUserSearched] = useState<boolean>(false)
 
   const handleResults = (data: Meal[]) => {
     setMeals(data);
@@ -24,9 +25,10 @@ const SearchWrapper: React.FC<SearchWrapperProps> = ({ api, setCriticalError }) 
         setLoading={setLoading}
         loading={loading}
         setCriticalError={setCriticalError}
+        setUserSearched={setUserSearched}
         onResults={handleResults}
       />
-      {loading ? <Spinner /> : <ResultList meals={meals} />}
+      {loading ? <Spinner /> : <ResultList meals={meals} userSearched={userSearched} />}
     </>
 
   )
