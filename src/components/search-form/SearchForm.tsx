@@ -75,7 +75,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
             />
           </Col>
           <Col xs={12} md={2} lg={2} className={'mt-2'}>
-            <Button variant="primary" type="submit" disabled={ingredients === '' || loading}>
+            <Button variant="success" type="submit" disabled={ingredients === '' || loading}>
               Search
             </Button>
           </Col>
