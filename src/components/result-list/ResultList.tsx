@@ -17,6 +17,7 @@ const ResultList: React.FC<ResultListProps> = ({ meals }) => {
           </div>
         </Row>
       ) : (
+        // //TODO: MAKE IT BEAUTIFUL
         <p>No results found.</p>
       )}
     </div>
