@@ -6,9 +6,7 @@ describe('ResultList', () => {
 
   test('receive no meals', async () => {
 
-    render(
-        <ResultList meals={[]} />
-    )
+    render(<ResultList meals={[]} />);
 
     const recipeList = screen.queryByRole('recipe-list');
     expect(recipeList).toBeNull();
