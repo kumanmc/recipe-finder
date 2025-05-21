@@ -21,8 +21,7 @@ describe('SearchWrapper', () => {
     render(
       <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
     )
-    let spinner = screen.queryByTestId('loading-grid-loader');
-    expect(spinner).toBeNull();
+    expect(screen.queryByTestId('loading-grid-loader')).not.toBeInTheDocument();
 
     const title = screen.getByTestId('search-title') as HTMLInputElement;
     expect(title).toBeInTheDocument();
@@ -52,7 +51,7 @@ describe('SearchWrapper', () => {
     });
 
     await waitFor(() => {
-      expect(screen.queryByTestId('loading-grid-loader')).toBeNull();
+      expect(screen.queryByTestId('loading-grid-loader')).not.toBeInTheDocument();
     });
 
     //IMPORTANT: setCriticalError is in SearchFinder and shows the error message in the alert
@@ -89,7 +88,7 @@ describe('SearchWrapper', () => {
     });
 
     await waitFor(() => {
-      expect(screen.queryByTestId('loading-grid-loader')).toBeNull();
+      expect(screen.queryByTestId('loading-grid-loader')).not.toBeInTheDocument();
     });
 
     //TODO: SWITCH THIS ERROR TO WARNING THAT CAN BE DISPLAYED IN SEARCH FORM 
@@ -131,7 +130,7 @@ describe('SearchWrapper', () => {
     });
 
     await waitFor(() => {
-      expect(screen.queryByTestId('loading-grid-loader')).toBeNull();
+      expect(screen.queryByTestId('loading-grid-loader')).not.toBeInTheDocument();
     });
 
     await waitFor(() => {
@@ -142,6 +141,15 @@ describe('SearchWrapper', () => {
       // check if meals are displayed
       const recipeList = screen.getByRole('list')
       expect(recipeList).toBeInTheDocument();
+    });
+
+    //Navigate to the first recipe
+    const viewDetailsButton = screen.getByRole('button', { name: /View Details/i });
+    expect(viewDetailsButton).toBeInTheDocument();
+    fireEvent.click(viewDetailsButton);
+
+    await waitFor(() => {
+      expect(screen.queryByRole('article')).toBeInTheDocument();
     });
 
   });

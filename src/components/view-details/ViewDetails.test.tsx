@@ -1,13 +1,13 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import ViewDetails from './ViewDetails';
 import dataOne from './test-data/meals.one-data.json';
 
 describe('ViewDetails', () => {
 
-  test('receive meal and show info', () => {
-
-    render(<ViewDetails meal={dataOne.meals[0]} />);
+  test('receive meal and show info', async () => {
+    const onGoBack = jest.fn();
+    render(<ViewDetails meal={dataOne.meals[0]} onGoBack={onGoBack}/>);
 
     const meal = dataOne.meals[0];
 
@@ -40,8 +40,13 @@ describe('ViewDetails', () => {
     //INSTRUCTIONS:
 
 
-    const homeButton = screen.getByRole('button', { name: /Back/i });
-    expect(homeButton).toBeInTheDocument();
+    const backButton = screen.getByRole('button', { name: /Back/i });
+    expect(backButton).toBeInTheDocument();
+    fireEvent.click(backButton);
+
+    await waitFor(() => {
+      expect(onGoBack).toHaveBeenCalledTimes(1);
+    });
 
   });
 
