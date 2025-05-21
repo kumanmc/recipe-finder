@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from 'react'
 import { Button, Row, Col, Form, Alert } from 'react-bootstrap'
+import { Meal } from '../../types/meal.type';
 
 interface SearchFormProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
   setCriticalError: (message: string) => void;
   api: string;
-  onResults: (data: any[]) => void;
+  onResults: (data: Meal[]) => void;
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCriticalError, api, onResults }) => {
@@ -27,8 +28,14 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
         onResults([]);
       } else {
         const data = await response.json();
+        // console.log('IN API RESULTS')
+        // console.log(data)
         //console.log('API Success Response:', data);
-        onResults(data.meals);
+        if (data.meals === null) {
+          onResults([]);
+        } else {
+          onResults(data.meals);
+        }
       }
     } catch (error) {
       //console.log(''0024 - ' + error);

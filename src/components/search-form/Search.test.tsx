@@ -2,6 +2,7 @@ import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import SearchWrapper from './SearchWrapper';
 import { API_OK } from '../../utils/constants';
+import meals from '../result-list/test-data/meals.one-data.json';
 
 global.fetch = jest.fn();
 const mockedFetch = global.fetch as jest.Mock;
@@ -105,15 +106,7 @@ describe('SearchWrapper', () => {
       {
         "ok": true,
         status: 200,
-        json: jest.fn().mockResolvedValueOnce({
-          meals: [
-            {idMeal: 1, strMeal: 'Chicken Curry', strMealThumb: 'https://example.com/chicken-curry.jpg'},
-            {idMeal: 2, strMeal: 'Chicken Salad', strMealThumb: 'https://example.com/chicken-salad.jpg'},
-            {idMeal: 3, strMeal: 'Chicken Soup', strMealThumb: 'https://example.com/chicken-soup.jpg'},
-            {idMeal: 4, strMeal: 'Chicken Stir Fry', strMealThumb: 'https://example.com/chicken-stir-fry.jpg'},
-          ]
-        })
-
+        json: jest.fn().mockResolvedValueOnce(meals),
       }
     );
 
@@ -145,7 +138,59 @@ describe('SearchWrapper', () => {
       expect(screen.queryByTestId('loading-grid-loader')).not.toBeInTheDocument();
     });
 
-    expect(screen.getByRole('recipe-list')).toBeInTheDocument();
+    await waitFor(() => {
+      // check if meals are displayed
+      const recipeList = screen.queryByTestId('recipe-list');
+      expect(recipeList).toBeInTheDocument();
+    });
+
+  });
+
+  test('renders SearchWrapper, search and API response OK but no meals', async () => {
+    const setCriticalErrorMock = jest.fn();
+    mockedFetch.mockResolvedValueOnce(
+      {
+        "ok": true,
+        status: 200,
+        json: jest.fn().mockResolvedValueOnce({"meals":null}),
+      }
+    );
+
+    render(
+      <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
+    )
+    const recipeSearchInput = screen.getByLabelText(/Ingredient or keywords:/i);
+    fireEvent.change(recipeSearchInput, { target: { value: 'Chicken' } });
+    expect(recipeSearchInput).toHaveValue('Chicken');
+
+    // Simulate form submission
+    fireEvent.submit(screen.getByRole('form'));
+
+    //async actions after sending the form
+    await waitFor(() => {
+      expect(screen.getByTestId('loading-grid-loader')).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(mockedFetch).toHaveBeenCalledTimes(1);
+      expect(mockedFetch).toHaveBeenCalledWith(`${API_OK}search.php?s=Chicken`);
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-grid-loader')).toBeNull();
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-grid-loader')).not.toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      // check if meals are NOT displayed
+      const recipeList = screen.queryByTestId('recipe-list');
+      expect(recipeList).not.toBeInTheDocument();
+      const noResults = screen.getByText(/No results found/i);
+      expect(noResults).toBeInTheDocument();
+    });
 
   });
 
