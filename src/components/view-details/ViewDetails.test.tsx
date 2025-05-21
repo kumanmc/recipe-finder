@@ -16,7 +16,7 @@ describe('ViewDetails', () => {
     expect(image).toHaveAttribute('src', meal.strMealThumb);
 
     // Card.Title usually renders as an <h5>
-    const title = screen.getByRole('heading', { name: meal.strMeal, level: 5 });
+    const title = screen.getByRole('heading', { name: meal.strMeal, level: 1 });
     expect(title).toBeInTheDocument();
 
     if (meal.strCategory) { // Check if mock data has category
