@@ -1,4 +1,5 @@
 import { Meal } from "../../types/meal.type";
+import { Row, Col } from 'react-bootstrap';
 
 interface ResultListProps {
   meals: Meal[] | null;
@@ -10,9 +11,11 @@ const ResultList: React.FC<ResultListProps> = ({ meals }) => {
   return (
     <div>
       {meals && meals.length > 0 ? (
+        <Row role='list'>
         <div data-testid='recipe-list'>
           RESULTS!!!! OLEEEEE
           </div>
+        </Row>
       ) : (
         <p>No results found.</p>
       )}

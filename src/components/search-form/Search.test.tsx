@@ -140,7 +140,7 @@ describe('SearchWrapper', () => {
 
     await waitFor(() => {
       // check if meals are displayed
-      const recipeList = screen.queryByTestId('recipe-list');
+      const recipeList = screen.getByRole('list')
       expect(recipeList).toBeInTheDocument();
     });
 
@@ -186,7 +186,7 @@ describe('SearchWrapper', () => {
 
     await waitFor(() => {
       // check if meals are NOT displayed
-      const recipeList = screen.queryByTestId('recipe-list');
+      const recipeList = screen.queryByRole('list');
       expect(recipeList).not.toBeInTheDocument();
       const noResults = screen.getByText(/No results found/i);
       expect(noResults).toBeInTheDocument();
