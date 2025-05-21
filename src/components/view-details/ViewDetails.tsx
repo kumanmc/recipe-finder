@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { Meal } from '../../types/meal.type';
-import { Row } from 'react-bootstrap';
+import { Row, Col, Image } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
@@ -12,30 +12,41 @@ interface ViewDetailsProps {
 
 const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
 
+
+  const formatInstructions = () => {
+    if (!meal.strInstructions) return '';
+    return meal.strInstructions.replace(/\r\n|\n/g, '<br />');
+  };
+
   return (
-    <Row>
+    <Row className='mt-4'>
       <Card role="article">
-        <Card.Img
-          src={meal.strMealThumb}
-          alt={meal.strMeal}
-        />
+        <Card.Header>
+          <Card.Title as="h1">{meal.strMeal}</Card.Title>
+          <Card.Img
+            src={meal.strMealThumb}
+            alt={meal.strMeal}
+          />
+        </Card.Header>
         <Card.Body >
-          <Card.Title as="h5">{meal.strMeal}</Card.Title>
           <Tabs
-            defaultActiveKey="profile"
+            defaultActiveKey="general"
             id="uncontrolled-tab-example"
             className="mb-3"
           >
-            <Tab eventKey="profile" title="Profile">
-              <Card.Subtitle className="text-muted">
-                {meal.strCategory}
-              </Card.Subtitle>
-              <Card.Text as="div">
-                <small>Origin: {meal.strArea}</small>
+            <Tab eventKey="general" title="General">
+              <Card.Text >
+                <b>Category:</b>{meal.strCategory}
               </Card.Text>
               <Card.Text>
-                {meal.strInstructions}
+                <b>Origin:</b> {meal.strArea}
               </Card.Text>
+              <Card.Text>
+                <b>Preparation time:</b> DEVELOP
+              </Card.Text>
+            </Tab>
+            <Tab eventKey="profile" title="Instructions">
+              <div dangerouslySetInnerHTML={{ __html: formatInstructions() }} />
             </Tab>
             <Tab eventKey="ingredients" title="Ingredients">
               HERE INGREDIENTES
