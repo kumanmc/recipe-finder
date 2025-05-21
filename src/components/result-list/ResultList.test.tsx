@@ -1,26 +1,21 @@
 import React from 'react'
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
+import { render, screen} from '@testing-library/react'
 import ResultList from './ResultList';
-import { API_OK } from '../../utils/constants';
+
+describe('ResultList', () => {
+
+  test('receive no meals', async () => {
+
+    render(
+        <ResultList meals={[]} />
+    )
+
+    const recipeList = screen.queryByRole('recipe-list');
+    expect(recipeList).toBeNull();
+    const noResults = screen.getByText(/No results found/i);
+    expect(noResults).toBeInTheDocument();
+
+  });
 
 
-// describe('SearchWrapper', () => {
-
-//   test('renders SearchWrapper, search and API response OK', async () => {
-//     const data = {
-//       meals: [
-//         { idMeal: 1, strMeal: 'Chicken Curry', strMealThumb: 'https://example.com/chicken-curry.jpg' },
-//         { idMeal: 2, strMeal: 'Chicken Salad', strMealThumb: 'https://example.com/chicken-salad.jpg' },
-//         { idMeal: 3, strMeal: 'Chicken Soup', strMealThumb: 'https://example.com/chicken-soup.jpg' },
-//         { idMeal: 4, strMeal: 'Chicken Stir Fry', strMealThumb: 'https://example.com/chicken-stir-fry.jpg' },
-//       ]
-//     };
-
-//     render(
-//       <ResultList results={data.meals} />
-//     )
-
-//   });
-
-
-// })
+})
