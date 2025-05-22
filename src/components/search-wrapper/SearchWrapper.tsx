@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SearchForm from './SearchForm';
+import SearchForm from '../search-form/SearchForm';
 import Spinner from './Spinner';
 import ResultList from '../result-list/ResultList';
 import { Meal } from '../../types/meal.type';
