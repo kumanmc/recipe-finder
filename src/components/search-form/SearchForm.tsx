@@ -49,12 +49,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
     } finally {
       setLoading(false);
     }
-  }, [ingredients]);
+  }, [setLoading, setFavoritesMode, setUserSearched, ingredients, setCriticalError, onResults]);
 
   const handleSeeFavorites = useCallback(() => {
     setFavoritesMode(true);
     setUserSearched(false);
-   }, [setFavoritesMode, setIngredients, onResults, setUserSearched, favorites]);
+  }, [setFavoritesMode, setIngredients, onResults, setUserSearched, favorites]);
 
 
   return (
