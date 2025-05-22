@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import React from 'react';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 import { Meal } from '../../types/meal.type';
+import { Star, StarFill } from 'react-bootstrap-icons';
 
 interface MealCardProps {
   meal: Meal;
@@ -33,18 +34,38 @@ const MealCard: React.FC<MealCardProps> = ({ meal, onViewDetails }) => {
       </Card.Body>
 
       <Card.Footer >
-        <Button
-          variant="primary"
-          onClick={handleOnViewDetails}
-          aria-label={`View details for ${meal.strMeal}`}
-        >
-          View Details
-        </Button>
+        <Row>
+          <Col className={'col-12'}>
+            <Button
+              variant="primary"
+              onClick={handleOnViewDetails}
+              aria-label={`View details for ${meal.strMeal}`}
+            >
+              View Details
+            </Button>
+          </Col>
+          <Col className={'col-12 mt-2'}>
+            <span><Star color="gray" size={24} /></span>
+          </Col>
+        </Row>
+
       </Card.Footer>
 
     </Card>
   );
 };
 
+
+function MiComponente() {
+  return (
+    <div>
+      {/* Estrella rellena */}
+      <StarFill color="gold" size={24} />
+
+      {/* Estrella vacía */}
+      <Star color="gray" size={24} />
+    </div>
+  );
+}
 
 export default MealCard;

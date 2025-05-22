@@ -6,6 +6,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { getAproxTime } from './getAproachTime';
 import { getYouTubeEmbedUrl } from './getYouTubeEmbedUrl';
+import { Star, StarFill } from 'react-bootstrap-icons';
 
 interface ViewDetailsProps {
   meal: Meal;
@@ -84,7 +85,7 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
                           title={meal.strMeal}
                         ></iframe>
                       )
-                    }
+                      }
                     </Col>
                   </Row>
                 </Card.Text>
@@ -107,10 +108,19 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
         </Card.Body>
 
         <Card.Footer >
-          <Button variant="primary" onClick={onGoBack}>
-            Back
-          </Button>
+          <Row>
+            <Col className={'col-6'}>
+              <Button variant="primary" onClick={onGoBack}>
+                Back
+              </Button>
+            </Col>
+            <Col className={'col-6 mt-2'}>
+              <span><Star color="gray" size={24} /></span>
+            </Col>
+          </Row>
+
         </Card.Footer>
+
 
       </Card>
     </Row>

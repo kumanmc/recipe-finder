@@ -3,6 +3,7 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import SearchWrapper from './SearchWrapper';
 import { API_OK } from '../../utils/constants';
 import meals from '../result-list/test-data/meals.one-data.json';
+import { AppProvider } from '../../context/AppContext';
 
 global.fetch = jest.fn();
 const mockedFetch = global.fetch as jest.Mock;
@@ -19,7 +20,9 @@ describe('SearchWrapper', () => {
     mockedFetch.mockRejectedValueOnce(new Error('API server down'));
 
     render(
-      <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
+      <AppProvider>
+        <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
+      </AppProvider>
     )
     expect(screen.queryByTestId('loading-grid-loader')).not.toBeInTheDocument();
 
@@ -68,7 +71,9 @@ describe('SearchWrapper', () => {
     mockedFetch.mockResolvedValueOnce({ "ok": false, status: 200 });
 
     render(
-      <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
+      <AppProvider>
+        <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
+      </AppProvider>
     )
     const recipeSearchInput = screen.getByLabelText(/Ingredient or keywords:/i);
     fireEvent.change(recipeSearchInput, { target: { value: 'Chicken' } });
@@ -110,7 +115,9 @@ describe('SearchWrapper', () => {
     );
 
     render(
-      <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
+      <AppProvider>
+        <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
+      </AppProvider>
     )
     const recipeSearchInput = screen.getByLabelText(/Ingredient or keywords:/i);
     fireEvent.change(recipeSearchInput, { target: { value: 'Chicken' } });
@@ -160,12 +167,14 @@ describe('SearchWrapper', () => {
       {
         "ok": true,
         status: 200,
-        json: jest.fn().mockResolvedValueOnce({"meals":null}),
+        json: jest.fn().mockResolvedValueOnce({ "meals": null }),
       }
     );
 
     render(
-      <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
+      <AppProvider>
+        <SearchWrapper api={API_OK} setCriticalError={setCriticalErrorMock} />
+      </AppProvider>
     )
     const recipeSearchInput = screen.getByLabelText(/Ingredient or keywords:/i);
     fireEvent.change(recipeSearchInput, { target: { value: 'Chicken' } });

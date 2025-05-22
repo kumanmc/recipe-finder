@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { Button, Row, Col, Form, Alert } from 'react-bootstrap'
 import { Meal } from '../../types/meal.type';
+import { useAppContext } from '../../context/AppContext';
 
 interface SearchFormProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,10 +14,12 @@ interface SearchFormProps {
 
 const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCriticalError, api, onResults, setUserSearched }) => {
   const [ingredients, setIngredients] = useState<string>('')
+  const { setFavoritesMode } = useAppContext();
 
   const handleSearch = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
+    setFavoritesMode(false);
 
     try {
       const url = `${api}search.php?s=${encodeURIComponent(ingredients)}`;
@@ -48,6 +51,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
     }
   }, [ingredients]);
 
+  const handleSeeFavorites = useCallback(() => {
+    setFavoritesMode(true);
+    setIngredients('');
+    onResults([]);
+   }, [setFavoritesMode, setIngredients, onResults]);
+
 
   return (
     <Row className=''>
@@ -56,7 +65,11 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
         <Row className="align-items-center">
           <Alert variant='info' >
             <Alert.Heading data-testid="search-title">Welcome! Find Your Perfect Recipe</Alert.Heading>
-            <p>Here you can search for recipes using ingredients or keywords.</p>
+            <p class-name='mb-3'>Here you can search for recipes using ingredients or keywords.</p>
+            <p class-name='mb-3'>Now you can save your favorite recipes! They are accesibles for you here:</p>
+            <Row>
+              <Button variant="info" onClick={handleSeeFavorites}>See favorites</Button>
+            </Row>
           </Alert>
 
           <Col xs={12} md={4} lg={3} >

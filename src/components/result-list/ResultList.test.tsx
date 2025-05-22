@@ -1,25 +1,33 @@
 import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import ResultList from './ResultList';
+import { AppProvider } from '../../context/AppContext';
 import data from './test-data/meals.data.json';
 import dataOne from './test-data/meals.one-data.json';
 
 describe('ResultList', () => {
 
   test('receive no meals', () => {
-
-    render(<ResultList meals={[]} userSearched={false} />);
+    render(
+      <AppProvider>
+        <ResultList meals={[]} userSearched={false} />
+      </AppProvider>
+    );
     const recipeList = screen.queryByRole('recipe-list');
     expect(recipeList).toBeNull();
 
     const noResults = screen.queryByText(/No results found/i);
-    expect(noResults).not.toBeInTheDocument();
+    expect(noResults).toBeNull();
 
   });
 
   test('receive meals', () => {
 
-    render(<ResultList meals={data.meals} userSearched={false} />);
+    render(
+      <AppProvider>
+        <ResultList meals={data.meals} userSearched={false} />
+      </AppProvider>
+    );
 
     expect(screen.queryByText(/No results found/i)).not.toBeInTheDocument();
 
@@ -33,7 +41,11 @@ describe('ResultList', () => {
 
   test('receive one meals', async () => {
 
-    render(<ResultList meals={dataOne.meals} userSearched={false} />);
+    render(
+      <AppProvider>
+        <ResultList meals={dataOne.meals} userSearched={false} />
+      </AppProvider>
+    );
 
     expect(screen.queryByText(/No results found/i)).not.toBeInTheDocument();
 

@@ -6,6 +6,8 @@ interface AppContextType {
   addFavorite: (meal: Meal) => void;
   removeFavorite: (mealId: string) => void;
   isMealFavorite: (mealId: string) => boolean;
+  setFavoritesMode: (value: boolean) => void;
+  favoriteMode: boolean;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -16,6 +18,7 @@ interface AppProviderProps {
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [favorites, setFavorites] = useState<Meal[]>([]);
+  const [favoriteMode, setFavoriteMode] = useState<boolean>(false);
 
   useEffect(() => {
     const storedFavorites = localStorage.getItem('mdavid29021984@gmail.com-mealFavorites');
@@ -46,14 +49,20 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const isMealFavorite = (mealId: string): boolean => {
     return favorites.some(favMeal => favMeal.idMeal === mealId);
   };
+  
+  const setFavoritesMode = (value: boolean): void => {
+    setFavoriteMode(value);
+  };
 
 
   // El valor que se proveerá a los consumidores del contexto
   const contextValue: AppContextType = {
     favorites,
+    favoriteMode,
     addFavorite,
     removeFavorite,
     isMealFavorite,
+    setFavoritesMode
   };
 
   return (
