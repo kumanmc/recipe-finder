@@ -1,8 +1,8 @@
 ## Recipe Finder
 
-**Author:** Manuel David Garcia Mateos
-**Email:** mdavid29021984@gmail.com
-**Linkedin:** https://www.linkedin.com/in/manuel-david-garcia-mateos-ba5b11109/
+**Author:** Manuel David Garcia Mateos \
+**Email:** mdavid29021984@gmail.com \
+**Linkedin:** https://www.linkedin.com/in/manuel-david-garcia-mateos-ba5b11109/ \
 
 ## Available Scripts
 
