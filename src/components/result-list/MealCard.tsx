@@ -53,7 +53,7 @@ const MealCard: React.FC<MealCardProps> = ({ meal, onViewDetails }) => {
                 size={32}
                 style={{ cursor: 'pointer' }}
                 onClick={() => removeFavorite(meal.idMeal)}
-                title="Eliminar de favoritos"
+                title="Delete from favorites"
               />
             ) : (
               <Star
@@ -61,7 +61,7 @@ const MealCard: React.FC<MealCardProps> = ({ meal, onViewDetails }) => {
                 size={32}
                 style={{ cursor: 'pointer' }}
                 onClick={() => addFavorite(meal)}
-                title="Añadir a favoritos"
+                title="Add to favorites"
               />
             )}
           </Col>
@@ -72,18 +72,5 @@ const MealCard: React.FC<MealCardProps> = ({ meal, onViewDetails }) => {
     </Card>
   );
 };
-
-
-function MiComponente() {
-  return (
-    <div>
-      {/* Estrella rellena */}
-      <StarFill color="gold" size={24} />
-
-      {/* Estrella vacía */}
-      <Star color="gray" size={24} />
-    </div>
-  );
-}
 
 export default MealCard;
