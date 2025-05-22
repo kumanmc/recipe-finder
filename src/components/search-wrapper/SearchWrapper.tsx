@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import SearchForm from '../search-form/SearchForm';
-import Spinner from './Spinner';
+import { GridLoader } from 'react-spinners'
+
 import ResultList from '../result-list/ResultList';
 import { Meal } from '../../types/meal.type';
 import { useAppContext } from '../../context/AppContext';
@@ -37,3 +38,14 @@ const SearchWrapper: React.FC<SearchWrapperProps> = ({ api, setCriticalError }) 
 }
 
 export default SearchWrapper
+
+const Spinner = (() => {
+  return (
+    <div data-testid="loading-grid-loader">
+      <GridLoader
+        color="#3b82f6"
+        margin={70}
+        size={80} />
+    </div>
+  );
+})
