@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import ViewDetails from './ViewDetails';
-import dataOne from './test-data/meals.one-data.json';
-import dataOneNA from './test-data/meals.one-data-NA.json';
+import dataOneLongInstruction from '../../test-data/meals.one-data-long-instructions.json';
+import dataOneNA from '../../test-data/meals.one-data-NA.json';
 import { AppProvider } from '../../context/AppContext';
 
 describe('ViewDetails', () => {
@@ -10,10 +10,10 @@ describe('ViewDetails', () => {
   test('receive meal and show info', async () => {
     const onGoBack = jest.fn();
     render(<AppProvider>
-      <ViewDetails meal={dataOne.meals[0]} onGoBack={onGoBack} />
+      <ViewDetails meal={dataOneLongInstruction.meals[0]} onGoBack={onGoBack} />
     </AppProvider>);
 
-    const meal = dataOne.meals[0];
+    const meal = dataOneLongInstruction.meals[0];
 
     const image = screen.getByRole('img', { name: meal.strMeal });
     expect(image).toBeInTheDocument();
