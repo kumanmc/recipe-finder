@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import { Meal } from '../../types/meal.type';
 import { Star, StarFill } from 'react-bootstrap-icons';
+import { useAppContext } from '../../context/AppContext';
 
 interface MealCardProps {
   meal: Meal;
@@ -9,6 +10,7 @@ interface MealCardProps {
 }
 
 const MealCard: React.FC<MealCardProps> = ({ meal, onViewDetails }) => {
+  const { addFavorite, removeFavorite, isMealFavorite } = useAppContext();
 
   const handleOnViewDetails = () => {
     onViewDetails(meal);
@@ -45,7 +47,23 @@ const MealCard: React.FC<MealCardProps> = ({ meal, onViewDetails }) => {
             </Button>
           </Col>
           <Col className={'col-12 mt-2'}>
-            <span><Star color="gray" size={24} /></span>
+            {isMealFavorite(meal.idMeal) ? (
+              <StarFill
+                color="gold"
+                size={32}
+                style={{ cursor: 'pointer' }}
+                onClick={() => removeFavorite(meal.idMeal)}
+                title="Eliminar de favoritos"
+              />
+            ) : (
+              <Star
+                color="gray"
+                size={32}
+                style={{ cursor: 'pointer' }}
+                onClick={() => addFavorite(meal)}
+                title="Añadir a favoritos"
+              />
+            )}
           </Col>
         </Row>
 

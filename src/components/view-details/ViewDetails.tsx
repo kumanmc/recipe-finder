@@ -7,6 +7,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import { getAproxTime } from './getAproachTime';
 import { getYouTubeEmbedUrl } from './getYouTubeEmbedUrl';
 import { Star, StarFill } from 'react-bootstrap-icons';
+import { useAppContext } from '../../context/AppContext';
 
 interface ViewDetailsProps {
   meal: Meal;
@@ -14,7 +15,7 @@ interface ViewDetailsProps {
 }
 
 const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
-
+  const { addFavorite, removeFavorite, isMealFavorite } = useAppContext();
 
   const formatInstructions = () => {
     return meal.strInstructions.replace(/\r\n|\n/g, '<br />');
@@ -114,8 +115,24 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
                 Back
               </Button>
             </Col>
-            <Col className={'col-6 mt-2'}>
-              <span><Star color="gray" size={24} /></span>
+            <Col className={'col-12 mt-2'}>
+              {isMealFavorite(meal.idMeal) ? (
+                <StarFill
+                  color="gold"
+                  size={32}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => removeFavorite(meal.idMeal)}
+                  title="Eliminar de favoritos"
+                />
+              ) : (
+                <Star
+                  color="gray"
+                  size={32}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => addFavorite(meal)}
+                  title="Añadir a favoritos"
+                />
+              )}
             </Col>
           </Row>
 
