@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Meal } from "../../types/meal.type";
 import MealCard from '../meal-card/MealCard';
-import { Row, Col, Alert, Button } from 'react-bootstrap';
+import { Row, Col, Alert } from 'react-bootstrap';
 import ViewDetails from '../view-details/ViewDetails';
 import { useAppContext } from '../../context/AppContext';
 import Favorites from '../favorites/Favorites';

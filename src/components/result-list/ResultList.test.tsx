@@ -1,7 +1,6 @@
 import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import ResultList from './ResultList';
-import { AppProvider } from '../../context/AppContext';
 import data from '../../test-data/meals.data.json';
 import dataOne from '../../test-data/meals.one-data.json';
 
