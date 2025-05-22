@@ -3,7 +3,7 @@
  * @param str La cadena de entrada.
  * @returns true: valid| false:invalid
  */
-export function isValidURL(url: string): boolean {
+export function isValidUrl(url: string): boolean {
   try {
     new URL(url);
     return true;

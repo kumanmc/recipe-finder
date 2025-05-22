@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { isValidURL } from '../utils/utils'
+import { isValidUrl } from '../helpers/is-valid-URL'
 import { Container, Row, Col, Navbar, Alert } from 'react-bootstrap'
 import SearchWrapper from './search-form/SearchWrapper'
 
@@ -12,7 +12,7 @@ const RecipeFinder: React.FC<RecipeFinderProps> = ({ api }) => {
   const [criticalError, setCriticalError] = useState('')
 
   useEffect(() => {
-    if (!isValidURL(api)) {
+    if (!isValidUrl(api)) {
       setCriticalError('0023 - Recipe Finder Error: wrong api value')
       return
     }

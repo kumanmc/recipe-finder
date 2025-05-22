@@ -3,12 +3,15 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import ViewDetails from './ViewDetails';
 import dataOne from './test-data/meals.one-data.json';
 import dataOneNA from './test-data/meals.one-data-NA.json';
+import { AppProvider } from '../../context/AppContext';
 
 describe('ViewDetails', () => {
 
   test('receive meal and show info', async () => {
     const onGoBack = jest.fn();
-    render(<ViewDetails meal={dataOne.meals[0]} onGoBack={onGoBack} />);
+    render(<AppProvider>
+      <ViewDetails meal={dataOne.meals[0]} onGoBack={onGoBack} />
+    </AppProvider>);
 
     const meal = dataOne.meals[0];
 
@@ -69,7 +72,9 @@ describe('ViewDetails', () => {
 
   test('N/A values', async () => {
     const onGoBack = jest.fn();
-    render(<ViewDetails meal={dataOneNA.meals[0]} onGoBack={onGoBack} />);
+    render(<AppProvider>
+      <ViewDetails meal={dataOneNA.meals[0]} onGoBack={onGoBack} />
+    </AppProvider>);
 
     const meal = dataOneNA.meals[0];
 

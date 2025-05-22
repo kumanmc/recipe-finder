@@ -4,8 +4,8 @@ import { Meal } from '../../types/meal.type';
 import { Row, Col, Image } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { getAproxTime } from './getAproachTime';
-import { getYouTubeEmbedUrl } from './getYouTubeEmbedUrl';
+import { getAproxTime } from '../../helpers/getAproachTime';
+import { getYouTubeEmbedUrl } from '../../helpers/getYouTubeEmbedUrl';
 import { Star, StarFill } from 'react-bootstrap-icons';
 import { useAppContext } from '../../context/AppContext';
 
