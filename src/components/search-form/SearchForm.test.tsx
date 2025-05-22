@@ -21,6 +21,8 @@ describe('Search Form', () => {
     const setLoading = jest.fn();
     const setUserSearched = jest.fn();
     const onResults = jest.fn();
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
     mockedFetch.mockRejectedValueOnce(new Error('API server down'));
 
     render(
@@ -32,6 +34,8 @@ describe('Search Form', () => {
           loading={false}
           setUserSearched={setUserSearched}
           onResults={onResults}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
         />
       </AppProvider>
     );
@@ -53,6 +57,8 @@ describe('Search Form', () => {
     const setLoading = jest.fn();
     const setUserSearched = jest.fn();
     const onResults = jest.fn();
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
     mockedFetch.mockRejectedValueOnce(new Error('API server down'));
 
     render(
@@ -64,6 +70,8 @@ describe('Search Form', () => {
           loading={false}
           setUserSearched={setUserSearched}
           onResults={onResults}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
         />
       </AppProvider>
     );
@@ -111,6 +119,8 @@ describe('Search Form', () => {
     const setLoading = jest.fn();
     const setUserSearched = jest.fn();
     const onResults = jest.fn();
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
 
     mockedFetch.mockResolvedValueOnce({ "ok": false, status: 200 });
 
@@ -123,6 +133,8 @@ describe('Search Form', () => {
           loading={false}
           setUserSearched={setUserSearched}
           onResults={onResults}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
         />
       </AppProvider>
     );
@@ -157,6 +169,8 @@ describe('Search Form', () => {
     const setLoading = jest.fn();
     const setUserSearched = jest.fn();
     const onResults = jest.fn();
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
 
     mockedFetch.mockResolvedValueOnce(
       {
@@ -175,6 +189,8 @@ describe('Search Form', () => {
           loading={false}
           setUserSearched={setUserSearched}
           onResults={onResults}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
         />
       </AppProvider>
     );

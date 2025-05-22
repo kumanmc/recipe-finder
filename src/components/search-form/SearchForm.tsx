@@ -10,9 +10,11 @@ interface SearchFormProps {
   setUserSearched: (value: boolean) => void;
   api: string;
   onResults: (data: Meal[]) => void;
+  setCurrentMeal: (meal: Meal | null) => void;
+  setCurrentFavoriteMeal: (meal: Meal | null) => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCriticalError, api, onResults, setUserSearched }) => {
+const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCriticalError, api, onResults, setUserSearched, setCurrentMeal, setCurrentFavoriteMeal }) => {
   const [ingredients, setIngredients] = useState<string>('')
   const { favoriteMode, setFavoritesMode, favorites } = useAppContext();
 
@@ -21,6 +23,8 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
     event.preventDefault();
     setLoading(true);
     setFavoritesMode(false);
+    setCurrentMeal(null);
+    setCurrentFavoriteMeal(null);
 
     try {
       const url = `${api}search.php?s=${encodeURIComponent(ingredients)}`;

@@ -8,9 +8,19 @@ import dataOne from '../../test-data/meals.one-data.json';
 describe('ResultList', () => {
 
   test('receive no meals', () => {
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
     render(
       <AppProvider>
-        <ResultList meals={[]} userSearched={false} loading={false}/>
+        <ResultList
+          meals={[]}
+          userSearched={false}
+          loading={false}
+          currentMeal={null}
+          currentFavoriteMeal={null}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
+        />
       </AppProvider>
     );
     const recipeList = screen.queryByRole('recipe-list');
@@ -22,10 +32,19 @@ describe('ResultList', () => {
   });
 
   test('receive meals', () => {
-
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
     render(
       <AppProvider>
-        <ResultList meals={data.meals} userSearched={false} loading={false}/>
+        <ResultList
+          meals={data.meals}
+          userSearched={false}
+          loading={false}
+          currentMeal={null}
+          currentFavoriteMeal={null}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
+        />
       </AppProvider>
     );
 
@@ -40,10 +59,19 @@ describe('ResultList', () => {
   });
 
   test('receive one meal', async () => {
-
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
     render(
       <AppProvider>
-        <ResultList meals={dataOne.meals} userSearched={false} loading={false}/>
+        <ResultList
+          meals={dataOne.meals}
+          userSearched={false}
+          loading={false}
+          currentMeal={null}
+          currentFavoriteMeal={null}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
+        />
       </AppProvider>
     );
 
@@ -57,10 +85,19 @@ describe('ResultList', () => {
 
   });
   test('loading', async () => {
-
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
     render(
       <AppProvider>
-        <ResultList meals={dataOne.meals} userSearched={false} loading={true}/>
+        <ResultList
+          meals={dataOne.meals}
+          userSearched={false}
+          loading={true}
+          currentMeal={null}
+          currentFavoriteMeal={null}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
+        />
       </AppProvider>
     );
 

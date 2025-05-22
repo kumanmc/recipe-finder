@@ -11,6 +11,10 @@ interface ResultListProps {
   meals: Meal[] | null;
   userSearched: boolean;
   loading: boolean;
+  setCurrentMeal: (meal: Meal | null) => void;
+  setCurrentFavoriteMeal: (meal: Meal | null) => void;
+  currentMeal: Meal | null;
+  currentFavoriteMeal: Meal | null;
 };
 
 const Spinner = (() => {
@@ -25,9 +29,7 @@ const Spinner = (() => {
 })
 
 
-const ResultList: React.FC<ResultListProps> = ({ meals, userSearched, loading }) => {
-  const [currentMeal, setCurrentMeal] = useState<Meal | null>(null);
-  const [currentFavoriteMeal, setCurrentFavoriteMeal] = useState<Meal | null>(null);
+const ResultList: React.FC<ResultListProps> = ({ meals, userSearched, loading, setCurrentMeal, setCurrentFavoriteMeal, currentMeal, currentFavoriteMeal }) => {
   const { favoriteMode } = useAppContext();
 
   if (loading) {
