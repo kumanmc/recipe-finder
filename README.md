@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+## Recipe Finder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Author:** Manuel David Garcia Mateos
+**Email:** mdavid29021984@gmail.com
+**Linkedin:** https://www.linkedin.com/in/manuel-david-garcia-mateos-ba5b11109/
 
 ## Available Scripts
 
@@ -8,7 +10,7 @@ In the project directory:
 
 ### `npm install`
 
-Install dependencies required to execute the project locally
+Installs dependencies required to execute the project locally
 
 ### `npm start`
 
@@ -42,3 +44,7 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
