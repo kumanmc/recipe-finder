@@ -27,8 +27,9 @@ describe('ResultList', () => {
     expect(recipeList).toBeNull();
 
     const noResults = screen.queryByText(/No results found/i);
-    expect(noResults).toBeNull();
-
+    waitFor(() => {
+      expect(noResults).toBeInTheDocument();
+    });
   });
 
   test('receive meals', () => {

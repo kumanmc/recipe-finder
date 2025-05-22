@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Row, Col } from 'react-bootstrap';
+import { Button, Row, Col, Alert } from 'react-bootstrap';
 import { Meal } from '../../types/meal.type';
 import MealCard from '../meal-card/MealCard';
 import { useAppContext } from '../../context/AppContext';
@@ -26,15 +26,24 @@ const Favorites: React.FC<FavoritesProps> = ({ setCurrentMeal }) => {
         </Col>
       </Row>
       {
-        favorites && favorites.length > 0 && (
-          <Row role='list' className="border p-3 rounded">
+        favorites && favorites.length > 0 ? (
+          <Row role='favorites-list' className="border p-3 rounded">
             {favorites.map((meal) => (
               <Col role={'listitem'} key={meal.idMeal} xs={12} sm={6} md={4} lg={3} className="mb-2 d-flex">
                 <MealCard meal={meal} onViewDetails={setCurrentMeal} />
               </Col>
             ))}
           </Row>
-        )
+        ) :
+          (
+            <Row className="align-items-center">
+              <Alert variant='warning' >
+                <Alert.Heading>No favorites found</Alert.Heading>
+                Discover incredible recipes and save them with the star icon.
+              </Alert>
+              <h2></h2>
+            </Row>
+          )
       }
       <Row>
         <Col className={'col-12'}>
