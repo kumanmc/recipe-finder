@@ -23,15 +23,17 @@ const MealCard: React.FC<MealCardProps> = ({ meal, onViewDetails }) => {
         alt={meal.strMeal}
       />
       <Card.Body >
-        <Card.Title>{meal.strMeal}</Card.Title>
+        <Card.Title as="h3" id={`meal-title-${meal.idMeal}`}>
+          {meal.strMeal}
+        </Card.Title>
         <Card.Subtitle className="text-muted">
-          {meal.strCategory}
+          <span aria-label="Category:">{meal.strCategory}</span>
         </Card.Subtitle>
         <Card.Text as="div">
-          <small>Origin: {meal.strArea}</small>
+          <small><span aria-label="Origin:">{meal.strArea}</span></small>
         </Card.Text>
         <Card.Text>
-          {`${meal.strInstructions.substring(0, 100)}...`}
+          <span aria-label="Instructions summary:">{meal.strInstructions.substring(0, 100)}</span>
         </Card.Text>
       </Card.Body>
 

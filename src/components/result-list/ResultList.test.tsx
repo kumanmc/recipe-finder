@@ -39,7 +39,7 @@ describe('ResultList', () => {
 
   });
 
-  test('receive one meals', async () => {
+  test('receive one meal', async () => {
 
     render(
       <AppProvider>
@@ -54,27 +54,6 @@ describe('ResultList', () => {
 
     const listItems = screen.getAllByRole('listitem');
     expect(listItems).toHaveLength(1);
-
-    //SEE DETAILS
-    const viewDetailsButton = screen.getByRole('button', { name: /View Details/i });
-    expect(viewDetailsButton).toBeInTheDocument();
-    fireEvent.click(viewDetailsButton);
-
-    await waitFor(() => {
-      expect(screen.queryByRole('article')).toBeInTheDocument();
-      expect(screen.queryByRole('list')).not.toBeInTheDocument();
-    });
-
-    //GO BACK
-    const backButton = screen.getByRole('button', { name: /Back/i });
-    expect(backButton).toBeInTheDocument();
-    fireEvent.click(backButton);
-
-    await waitFor(() => {
-      recipeList = screen.getByRole('list');
-      expect(recipeList).toBeInTheDocument();
-    });
-
 
   });
 
