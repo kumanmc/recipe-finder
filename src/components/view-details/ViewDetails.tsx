@@ -42,11 +42,39 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
     <Row className='mt-4'>
       <Card role="article">
         <Card.Header>
-          <Card.Title as="h1">{meal.strMeal}</Card.Title>
-          <Card.Img
-            src={meal.strMealThumb}
-            alt={meal.strMeal}
-          />
+          <Row>
+            <Col className="col-2"></Col>
+            <Col className={'col-8 "d-flex justify-content-center align-items-center'}>
+              <Card.Title as="h1">{meal.strMeal}</Card.Title>
+            </Col>
+            <Col className="col-2">
+              {isMealFavorite(meal.idMeal) ? (
+                <StarFill
+                  color="gold"
+                  size={32}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => removeFavorite(meal.idMeal)}
+                  title="Remove from favorites"
+                />
+              ) : (
+                <Star
+                  color="gray"
+                  size={32}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => addFavorite(meal)}
+                  title="Add to favorites"
+                />
+              )}
+            </Col>
+          </Row>
+
+          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+            <Card.Img
+              src={meal.strMealThumb}
+              alt={meal.strMeal}
+              className="img-fluid rounded"
+            />
+          </div>
         </Card.Header>
         <Card.Body >
           <Tabs
@@ -109,31 +137,14 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
         </Card.Body>
 
         <Card.Footer >
-          <Row>
-            <Col className={'col-6'}>
-              <Button variant="primary" onClick={onGoBack}>
+          <Row className="align-items-center mt-2">
+            <Col className="col-4"></Col>
+            <Col className="col-4">
+              <Button variant="primary" onClick={onGoBack} className="w-100">
                 Back
               </Button>
             </Col>
-            <Col className={'col-12 mt-2'}>
-              {isMealFavorite(meal.idMeal) ? (
-                <StarFill
-                  color="gold"
-                  size={32}
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => removeFavorite(meal.idMeal)}
-                  title="Eliminar de favoritos"
-                />
-              ) : (
-                <Star
-                  color="gray"
-                  size={32}
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => addFavorite(meal)}
-                  title="Añadir a favoritos"
-                />
-              )}
-            </Col>
+            <Col className="col-4"></Col>
           </Row>
 
         </Card.Footer>

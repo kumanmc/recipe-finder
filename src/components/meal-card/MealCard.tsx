@@ -18,6 +18,27 @@ const MealCard: React.FC<MealCardProps> = ({ meal, onViewDetails }) => {
 
   return (
     <Card >
+      <Row>
+        <Col className={'col-12'}>
+          {isMealFavorite(meal.idMeal) ? (
+            <StarFill
+              color="gold"
+              size={32}
+              style={{ cursor: 'pointer' }}
+              onClick={() => removeFavorite(meal.idMeal)}
+              title="Delete from favorites"
+            />
+          ) : (
+            <Star
+              color="gray"
+              size={32}
+              style={{ cursor: 'pointer' }}
+              onClick={() => addFavorite(meal)}
+              title="Add to favorites"
+            />
+          )}
+        </Col>
+      </Row>
       <Card.Img
         src={meal.strMealThumb}
         alt={meal.strMeal}
@@ -47,25 +68,6 @@ const MealCard: React.FC<MealCardProps> = ({ meal, onViewDetails }) => {
             >
               View Details
             </Button>
-          </Col>
-          <Col className={'col-12 mt-2'}>
-            {isMealFavorite(meal.idMeal) ? (
-              <StarFill
-                color="gold"
-                size={32}
-                style={{ cursor: 'pointer' }}
-                onClick={() => removeFavorite(meal.idMeal)}
-                title="Delete from favorites"
-              />
-            ) : (
-              <Star
-                color="gray"
-                size={32}
-                style={{ cursor: 'pointer' }}
-                onClick={() => addFavorite(meal)}
-                title="Add to favorites"
-              />
-            )}
           </Col>
         </Row>
 

@@ -16,9 +16,6 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
   const [ingredients, setIngredients] = useState<string>('')
   const { favoriteMode, setFavoritesMode, favorites } = useAppContext();
 
-  if (favoriteMode) {
-    return null;
-  }
 
   const handleSearch = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -61,6 +58,10 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
   }, [setFavoritesMode, setIngredients, onResults, setUserSearched, favorites]);
 
 
+  if (favoriteMode) {
+    return null;
+  }
+
   return (
     <Row className=''>
       <Form onSubmit={handleSearch} aria-label={'Recipe search form'}
@@ -69,10 +70,17 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
           <Alert variant='info' >
             <Alert.Heading data-testid="search-title">Welcome! Find Your Perfect Recipe</Alert.Heading>
             <p class-name='mb-3'>Here you can search for recipes using ingredients or keywords.</p>
-            <p class-name='mb-3'>Now you can save your favorite recipes! They are accesibles for you here:</p>
+
+            <p class-name='mb-3'>Now you can save your favorite recipes! They are accesibles for you here</p>
             <Row>
-              <Button variant="info" onClick={handleSeeFavorites}>See favorites</Button>
+              <Col className={'col-2'}></Col>
+              <Col className={'col-8'}>
+                <Button variant="info" onClick={handleSeeFavorites}>See favorites</Button>
+              </Col>
+              <Col className={'col-2'}></Col>
             </Row>
+            <p className='mt-3'>You have {favorites.length} favorites saved</p>
+
           </Alert>
 
           <Col xs={12} md={4} lg={3} >

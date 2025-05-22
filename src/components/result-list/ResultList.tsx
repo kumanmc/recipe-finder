@@ -27,41 +27,48 @@ const Spinner = (() => {
 
 const ResultList: React.FC<ResultListProps> = ({ meals, userSearched, loading }) => {
   const [currentMeal, setCurrentMeal] = useState<Meal | null>(null);
+  const [currentFavoriteMeal, setCurrentFavoriteMeal] = useState<Meal | null>(null);
   const { favoriteMode } = useAppContext();
 
   if (loading) {
-    return <Spinner />;
+    return <Spinner />
   }
 
   const handleOnGoBack = () => {
     setCurrentMeal(null);
   };
 
+  const handleOnFavoriteGoBack = () => {
+    setCurrentFavoriteMeal(null)
+  };
+
   return (
     <>
       {
-        favoriteMode ? (<Favorites setCurrentMeal={setCurrentMeal} />) :
-          currentMeal ? (<ViewDetails meal={currentMeal} onGoBack={handleOnGoBack} />) :
-            meals && meals.length > 0 ?
-              (
-                <Row role='list' className="border p-3 rounded">
-                  {meals.map((meal) => (
-                    <Col role={'listitem'} key={meal.idMeal} xs={12} sm={6} md={4} lg={3} className="mb-2 d-flex">
-                      <MealCard meal={meal} onViewDetails={setCurrentMeal} />
-                    </Col>
-                  ))}
-                </Row>
-              )
-              : userSearched &&
-              (
-                <Row className="align-items-center">
-                  <Alert variant='warning' >
-                    <Alert.Heading>No results found</Alert.Heading>
-                    Try with other ingredients or keywords.
-                  </Alert>
-                  <h2></h2>
-                </Row>
-              )
+        currentFavoriteMeal ? (<ViewDetails meal={currentFavoriteMeal} onGoBack={handleOnFavoriteGoBack} />) :
+          favoriteMode ? (<Favorites setCurrentMeal={setCurrentFavoriteMeal} />) :
+            currentMeal ? (<ViewDetails meal={currentMeal} onGoBack={handleOnGoBack} />) :
+
+              meals && meals.length > 0 ?
+                (
+                  <Row role='list' className="border p-3 rounded">
+                    {meals.map((meal) => (
+                      <Col role={'listitem'} key={meal.idMeal} xs={12} sm={6} md={4} lg={3} className="mb-2 d-flex">
+                        <MealCard meal={meal} onViewDetails={setCurrentMeal} />
+                      </Col>
+                    ))}
+                  </Row>
+                )
+                : userSearched &&
+                (
+                  <Row className="align-items-center">
+                    <Alert variant='warning' >
+                      <Alert.Heading>No results found</Alert.Heading>
+                      Try with other ingredients or keywords.
+                    </Alert>
+                    <h2></h2>
+                  </Row>
+                )
 
       }
     </>

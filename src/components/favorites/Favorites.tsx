@@ -9,8 +9,11 @@ interface FavoritesProps {
 }
 
 const Favorites: React.FC<FavoritesProps> = ({ setCurrentMeal }) => {
-  const { setFavoritesMode, favorites } = useAppContext();
+  const { setFavoritesMode, favorites, favoriteMode } = useAppContext();
 
+  if (!favoriteMode) {
+    return null;
+  }
   const handleBackToSearch = () => {
     setFavoritesMode(false);
   };
