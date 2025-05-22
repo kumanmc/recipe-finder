@@ -10,7 +10,7 @@ describe('ResultList', () => {
   test('receive no meals', () => {
     render(
       <AppProvider>
-        <ResultList meals={[]} userSearched={false} />
+        <ResultList meals={[]} userSearched={false} loading={false}/>
       </AppProvider>
     );
     const recipeList = screen.queryByRole('recipe-list');
@@ -25,7 +25,7 @@ describe('ResultList', () => {
 
     render(
       <AppProvider>
-        <ResultList meals={data.meals} userSearched={false} />
+        <ResultList meals={data.meals} userSearched={false} loading={false}/>
       </AppProvider>
     );
 
@@ -43,7 +43,7 @@ describe('ResultList', () => {
 
     render(
       <AppProvider>
-        <ResultList meals={dataOne.meals} userSearched={false} />
+        <ResultList meals={dataOne.meals} userSearched={false} loading={false}/>
       </AppProvider>
     );
 
@@ -54,6 +54,21 @@ describe('ResultList', () => {
 
     const listItems = screen.getAllByRole('listitem');
     expect(listItems).toHaveLength(1);
+
+  });
+  test('loading', async () => {
+
+    render(
+      <AppProvider>
+        <ResultList meals={dataOne.meals} userSearched={false} loading={true}/>
+      </AppProvider>
+    );
+
+    expect(screen.queryByText(/No results found/i)).not.toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByTestId('loading-grid-loader')).toBeInTheDocument();
+    });
 
   });
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import SearchForm from '../search-form/SearchForm';
-import { GridLoader } from 'react-spinners'
 
 import ResultList from '../result-list/ResultList';
 import { Meal } from '../../types/meal.type';
@@ -23,18 +22,20 @@ const SearchWrapper: React.FC<SearchWrapperProps> = ({ api, setCriticalError }) 
 
   return (
     <>
-      {!favoriteMode && <SearchForm
+      <SearchForm
         api={api}
         setLoading={setLoading}
         loading={loading}
         setCriticalError={setCriticalError}
         setUserSearched={setUserSearched}
         onResults={handleResults}
-      />}
-      {
-        loading ? <Spinner /> :
-          <ResultList meals={meals} userSearched={userSearched} />
-      }
+      />
+      <ResultList
+        meals={meals}
+        userSearched={userSearched}
+        loading={loading}
+      />
+
     </>
 
   )
@@ -42,13 +43,3 @@ const SearchWrapper: React.FC<SearchWrapperProps> = ({ api, setCriticalError }) 
 
 export default SearchWrapper
 
-const Spinner = (() => {
-  return (
-    <div data-testid="loading-grid-loader">
-      <GridLoader
-        color="#3b82f6"
-        margin={70}
-        size={80} />
-    </div>
-  );
-})

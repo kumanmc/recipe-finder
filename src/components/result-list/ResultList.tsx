@@ -5,15 +5,33 @@ import { Row, Col, Alert, Button } from 'react-bootstrap';
 import ViewDetails from '../view-details/ViewDetails';
 import { useAppContext } from '../../context/AppContext';
 import Favorites from '../favorites/Favorites';
+import { GridLoader } from 'react-spinners'
 
 interface ResultListProps {
   meals: Meal[] | null;
   userSearched: boolean;
+  loading: boolean;
 };
 
-const ResultList: React.FC<ResultListProps> = ({ meals, userSearched }) => {
+const Spinner = (() => {
+  return (
+    <div data-testid="loading-grid-loader">
+      <GridLoader
+        color="#3b82f6"
+        margin={70}
+        size={80} />
+    </div>
+  );
+})
+
+
+const ResultList: React.FC<ResultListProps> = ({ meals, userSearched, loading }) => {
   const [currentMeal, setCurrentMeal] = useState<Meal | null>(null);
   const { favoriteMode } = useAppContext();
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const handleOnGoBack = () => {
     setCurrentMeal(null);

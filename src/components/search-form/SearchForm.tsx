@@ -14,7 +14,11 @@ interface SearchFormProps {
 
 const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCriticalError, api, onResults, setUserSearched }) => {
   const [ingredients, setIngredients] = useState<string>('')
-  const { setFavoritesMode, favorites } = useAppContext();
+  const { favoriteMode, setFavoritesMode, favorites } = useAppContext();
+
+  if (favoriteMode) {
+    return null;
+  }
 
   const handleSearch = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
