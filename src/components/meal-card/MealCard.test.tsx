@@ -2,7 +2,6 @@ import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import MealCard from './MealCard';
 import * as AppContextModule from '../../context/AppContext';
-import data from '../../test-data/meals.data.json';
 import dataOne from '../../test-data/meals.one-data.json';
 
 jest.mock('../../context/AppContext');

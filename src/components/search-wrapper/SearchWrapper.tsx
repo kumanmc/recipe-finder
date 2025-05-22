@@ -3,7 +3,6 @@ import SearchForm from '../search-form/SearchForm';
 
 import ResultList from '../result-list/ResultList';
 import { Meal } from '../../types/meal.type';
-import { useAppContext } from '../../context/AppContext';
 
 interface SearchWrapperProps {
   api: string;

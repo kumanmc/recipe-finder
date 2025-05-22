@@ -2,7 +2,6 @@ import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import SearchWrapper from './SearchWrapper';
 import { API_OK } from '../../utils/constants';
-import meals from '../../test-data/meals.one-data.json';
 import { AppProvider } from '../../context/AppContext';
 
 global.fetch = jest.fn();

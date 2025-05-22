@@ -91,8 +91,6 @@ describe('ViewDetails', () => {
       <ViewDetails meal={dataOneNA.meals[0]} onGoBack={onGoBack} />
     );
 
-    const meal = dataOneNA.meals[0];
-
     const videoYoutube = screen.queryByRole('region', { name: /Recipe reproductor/i });
     expect(videoYoutube).not.toBeInTheDocument();
 
@@ -122,8 +120,6 @@ describe('ViewDetails', () => {
     render(
       <ViewDetails meal={dataOneNA.meals[0]} onGoBack={onGoBack} />
     );
-
-    const meal = dataOneNA.meals[0];
 
     const filledStarIcon = screen.getByTitle('Remove from favorites');
     expect(filledStarIcon).toBeInTheDocument();

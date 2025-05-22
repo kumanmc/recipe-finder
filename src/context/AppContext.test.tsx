@@ -120,10 +120,8 @@ describe('AppProvider and useAppContext', () => {
     // 1. Controla lo que localStorage.getItem devuelve al AppProvider al inicio
     localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([localMockMeal1]));
 
-    let isMealFavoriteFn: (mealId: string) => boolean;
     const TestComponent = () => {
       const { isMealFavorite } = useAppContext();
-      isMealFavoriteFn = isMealFavorite;
       // El display ahora reflejará el resultado de isMealFavorite después de la carga
       return <div data-testid="is-favorite-status">{isMealFavorite(localMockMeal1.idMeal).toString()}</div>;
     };

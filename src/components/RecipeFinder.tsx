@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { isValidUrl } from '../helpers/is-valid-URL'
-import { Container, Row, Col, Navbar, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Alert } from 'react-bootstrap'
 import SearchWrapper from './search-wrapper/SearchWrapper'
 
 interface RecipeFinderProps {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Meal } from "../../types/meal.type";
 import MealCard from '../meal-card/MealCard';
 import { Row, Col, Alert } from 'react-bootstrap';
@@ -65,10 +65,9 @@ const ResultList: React.FC<ResultListProps> = ({ meals, userSearched, loading, s
                 (
                   <Row className="align-items-center">
                     <Alert variant='warning' >
-                      <Alert.Heading>No results found</Alert.Heading>
+                      <Alert.Heading><span aria-label='No results found'>No results found</span></Alert.Heading>
                       Try with other ingredients or keywords.
                     </Alert>
-                    <h2></h2>
                   </Row>
                 )
 

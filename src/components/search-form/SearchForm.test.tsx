@@ -4,7 +4,6 @@ import SearchForm from './SearchForm';
 import { API_OK } from '../../utils/constants';
 import meals from '../../test-data/meals.one-data.json';
 import { AppProvider } from '../../context/AppContext';
-import { Meal } from '../../types/meal.type';
 
 global.fetch = jest.fn();
 const mockedFetch = global.fetch as jest.Mock;

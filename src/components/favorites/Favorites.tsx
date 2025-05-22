@@ -38,10 +38,9 @@ const Favorites: React.FC<FavoritesProps> = ({ setCurrentMeal }) => {
           (
             <Row className="align-items-center">
               <Alert variant='warning' >
-                <Alert.Heading>No favorites found</Alert.Heading>
+                <Alert.Heading><span aria-label='No favorites found'>No favorites found</span></Alert.Heading>
                 Discover incredible recipes and save them with the star icon.
               </Alert>
-              <h2></h2>
             </Row>
           )
       }
