@@ -2,6 +2,7 @@ import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import ViewDetails from './ViewDetails';
 import dataOne from './test-data/meals.one-data.json';
+import dataOneNA from './test-data/meals.one-data-NA.json';
 
 describe('ViewDetails', () => {
 
@@ -15,25 +16,12 @@ describe('ViewDetails', () => {
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute('src', meal.strMealThumb);
 
-    // Card.Title usually renders as an <h5>
     const title = screen.getByRole('heading', { name: meal.strMeal, level: 1 });
     expect(title).toBeInTheDocument();
 
-    if (meal.strCategory) { // Check if mock data has category
-      expect(screen.getByText(meal.strCategory)).toBeInTheDocument();
-    }
-
-    if (meal.strArea) { // Check if mock data has area
-      // We search for the text content. Using a regex for flexibility.
-      expect(screen.getByText(`${meal.strArea}`)).toBeInTheDocument();
-    }
-
-    if (meal.strInstructions) { // Check if mock data has instructions
-      expect(screen.getByText(meal.strInstructions)).toBeInTheDocument();
-    }
-
-    // TODO: PREPARATION TIME. SEARCH BY MINUTES, HOUR, HOURS IN DESCRIPTION AND GET NUMBERS
-    // TO SHOW SOME APROX VALUE
+    expect(screen.getByText(meal.strCategory)).toBeInTheDocument();
+    expect(screen.getByText(`${meal.strArea}`)).toBeInTheDocument();
+    expect(screen.getByText(meal.strInstructions)).toBeInTheDocument();
 
     //General selected when access
     const generalTabButton = screen.getByRole('tab', { name: /General/i });
@@ -64,6 +52,29 @@ describe('ViewDetails', () => {
     });
     const ingredients = meal.strMeasure1 + ' ' + meal.strIngredient1;
     expect(screen.getByText(ingredients)).toBeInTheDocument();
+
+    const videoYoutube = screen.queryByRole('region', { name: /Recipe reproductor/i });
+    expect(videoYoutube).toBeInTheDocument();
+
+
+    const backButton = screen.getByRole('button', { name: /Back/i });
+    expect(backButton).toBeInTheDocument();
+    fireEvent.click(backButton);
+
+    await waitFor(() => {
+      expect(onGoBack).toHaveBeenCalledTimes(1);
+    });
+
+  });
+
+  test('N/A values', async () => {
+    const onGoBack = jest.fn();
+    render(<ViewDetails meal={dataOneNA.meals[0]} onGoBack={onGoBack} />);
+
+    const meal = dataOneNA.meals[0];
+
+    const videoYoutube = screen.queryByRole('region', { name: /Recipe reproductor/i });
+    expect(videoYoutube).not.toBeInTheDocument();
 
 
     const backButton = screen.getByRole('button', { name: /Back/i });

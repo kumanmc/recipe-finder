@@ -2,7 +2,7 @@ import { getAproxTime } from './getAproachTime';
 
 describe('getAproxTime', () => {
 
-  it('empty parameter', () => {
+  it('Check scenarios', () => {
 
     expect(getAproxTime('')).toBe('No approximate time could be estimated');
     expect(getAproxTime('2 hours 1 hours 34 hour')).toBe('Approx. 37 hours');

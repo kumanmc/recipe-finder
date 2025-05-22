@@ -5,6 +5,7 @@ import { Row, Col, Image } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { getAproxTime } from './getAproachTime';
+import { getYouTubeEmbedUrl } from './getYouTubeEmbedUrl';
 
 interface ViewDetailsProps {
   meal: Meal;
@@ -23,7 +24,7 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
     const measureKeys = Object.keys(meal).filter(key => key.startsWith('strMeasure'));
 
     const rtn = [];
-    for(let i = 0; i < ingredientKeys.length; i++) {
+    for (let i = 0; i < ingredientKeys.length; i++) {
       if (!meal[ingredientKeys[i] as keyof Meal] && !meal[measureKeys[i] as keyof Meal]) {
         continue;
       }
@@ -32,6 +33,8 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
     return rtn.sort().filter(item => item.trim() !== '');
 
   }
+
+  const embedSrc = getYouTubeEmbedUrl(meal.strYoutube || '');
 
   return (
     <Row className='mt-4'>
@@ -46,19 +49,46 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ meal, onGoBack }) => {
         <Card.Body >
           <Tabs
             defaultActiveKey="general"
-            id="uncontrolled-tab-example"
+            id="view-details-tab"
             className="mb-3"
           >
             <Tab eventKey="general" title="General">
-              <Card.Text >
-                <b>Category:</b>{meal.strCategory}
+              <Card.Text as="div">
+                <Row>
+                  <Col className="col-4 fw-bold">Category:</Col>
+                  <Col className="col-8">{meal.strCategory}</Col>
+                </Row>
               </Card.Text>
-              <Card.Text>
-                <b>Origin:</b> {meal.strArea}
+              <Card.Text as="div">
+                <Row>
+                  <Col className="col-4 fw-bold">Origin:</Col>
+                  <Col className="col-8">{meal.strArea}</Col>
+                </Row>
               </Card.Text>
-              <Card.Text>
-                <b>Preparation time:</b> {getAproxTime(meal.strInstructions)}
+              <Card.Text as="div">
+                <Row>
+                  <Col className="col-4 fw-bold">Preparation time:</Col>
+                  <Col className="col-8">{getAproxTime(meal.strInstructions)}</Col>
+                </Row>
               </Card.Text>
+              {
+                embedSrc && <Card.Text as="div">
+                  <Row className="mt-3" role="region" aria-label="Recipe reproductor">
+                    <Col className="col-12">
+                      {meal.strYoutube && (
+                        <iframe
+                          className="embed-responsive-item"
+                          src={embedSrc}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          title={meal.strMeal}
+                        ></iframe>
+                      )
+                    }
+                    </Col>
+                  </Row>
+                </Card.Text>
+              }
             </Tab>
             <Tab eventKey="instructions" title="Instructions">
               <div dangerouslySetInnerHTML={{ __html: formatInstructions() }} />
