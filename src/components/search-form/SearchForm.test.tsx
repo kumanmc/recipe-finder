@@ -219,6 +219,107 @@ describe('Search Form', () => {
     });
 
   });
+  test('renders SearchForm, search and API response OK with no meals attribute', async () => {
+    const setCriticalErrorMock = jest.fn();
+    const setLoading = jest.fn();
+    const setUserSearched = jest.fn();
+    const onResults = jest.fn();
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
 
+    mockedFetch.mockResolvedValueOnce(
+      {
+        "ok": true,
+        status: 200,
+        json: jest.fn().mockResolvedValueOnce({data: null}),
+      }
+    );
+
+    render(
+      <AppProvider>
+        <SearchForm
+          api={API_OK}
+          setCriticalError={setCriticalErrorMock}
+          setLoading={setLoading}
+          loading={false}
+          setUserSearched={setUserSearched}
+          onResults={onResults}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
+        />
+      </AppProvider>
+    );
+
+    const recipeSearchInput = screen.getByLabelText(/Ingredient or keywords:/i);
+    fireEvent.change(recipeSearchInput, { target: { value: 'Chicken' } });
+    expect(recipeSearchInput).toHaveValue('Chicken');
+
+    // Simulate form submission
+    fireEvent.submit(screen.getByRole('form'));
+
+    //async actions after sending the form
+    await waitFor(() => {
+      expect(setLoading).toHaveBeenCalledTimes(2);
+
+      expect(mockedFetch).toHaveBeenCalledTimes(1);
+      expect(mockedFetch).toHaveBeenCalledWith(`${API_OK}search.php?s=Chicken`);
+
+      expect(setUserSearched).toHaveBeenCalledTimes(1);
+      expect(setUserSearched).toHaveBeenCalledWith(true);
+
+      expect(onResults).toHaveBeenCalledTimes(1);
+      expect(onResults).toHaveBeenCalledWith(undefined);
+
+      expect(setCriticalErrorMock).toHaveBeenCalledTimes(0);
+    });
+
+  });
+
+  //see favorites from search
+  test('seefavorites clicking on see favorites button', async () => {
+    const setCriticalErrorMock = jest.fn();
+    const setLoading = jest.fn();
+    const setUserSearched = jest.fn();
+    const onResults = jest.fn();
+    const setCurrentMeal = jest.fn();
+    const setCurrentFavoriteMeal = jest.fn();
+
+    mockedFetch.mockResolvedValueOnce(
+      {
+        "ok": true,
+        status: 200,
+        json: jest.fn().mockResolvedValueOnce(null),
+      }
+    );
+
+    render(
+      <AppProvider>
+        <SearchForm
+          api={API_OK}
+          setCriticalError={setCriticalErrorMock}
+          setLoading={setLoading}
+          loading={false}
+          setUserSearched={setUserSearched}
+          onResults={onResults}
+          setCurrentMeal={setCurrentMeal}
+          setCurrentFavoriteMeal={setCurrentFavoriteMeal}
+        />
+      </AppProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText('See favorites')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /See favorites/i })).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /See favorites/i }));
+
+    await waitFor(() => {
+      expect(setUserSearched).toHaveBeenCalledTimes(1);
+      expect(setUserSearched).toHaveBeenCalledWith(false);
+    });
+
+  });
+  //favaorite mode hides it
 
 })

@@ -41,11 +41,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
         // console.log('IN API RESULTS')
         // console.log(data)
         //console.log('API Success Response:', data);
-        if (data.meals === null) {
-          onResults([]);
-        } else {
-          onResults(data.meals);
-        }
+        onResults(data.meals);
       }
     } catch (error) {
       //console.log(''0024 - ' + error);
@@ -79,7 +75,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ setLoading, loading, setCritica
             <Row>
               <Col className={'col-2'}></Col>
               <Col className={'col-8'}>
-                <Button variant="info" onClick={handleSeeFavorites}>See favorites</Button>
+                <Button variant="info" onClick={handleSeeFavorites} aria-label='See favorites'>See favorites</Button>
               </Col>
               <Col className={'col-2'}></Col>
             </Row>
