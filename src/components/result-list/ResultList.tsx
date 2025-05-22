@@ -4,7 +4,6 @@ import MealCard from '../meal-card/MealCard';
 import { Row, Col, Alert, Button } from 'react-bootstrap';
 import ViewDetails from '../view-details/ViewDetails';
 import { useAppContext } from '../../context/AppContext';
-import { Star, StarFill } from 'react-bootstrap-icons';
 import Favorites from '../favorites/Favorites';
 
 interface ResultListProps {
