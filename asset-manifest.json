@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/kumanmc/recipe-finder/static/css/main.0d6acde6.css",
+    "main.js": "/kumanmc/recipe-finder/static/js/main.79f7026b.js",
+    "static/js/453.d2142cf0.chunk.js": "/kumanmc/recipe-finder/static/js/453.d2142cf0.chunk.js",
+    "index.html": "/kumanmc/recipe-finder/index.html",
+    "main.0d6acde6.css.map": "/kumanmc/recipe-finder/static/css/main.0d6acde6.css.map",
+    "main.79f7026b.js.map": "/kumanmc/recipe-finder/static/js/main.79f7026b.js.map",
+    "453.d2142cf0.chunk.js.map": "/kumanmc/recipe-finder/static/js/453.d2142cf0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0d6acde6.css",
+    "static/js/main.79f7026b.js"
+  ]
+}
